@@ -16,7 +16,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '18'
     
     - name: Install Dependencies
       run: npm install
@@ -31,6 +31,6 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./packaged-extension.zip
+        asset_path: Extension/packaged-extension.zip
         asset_name: boost-debugger.zip
         asset_content_type: application/zip
