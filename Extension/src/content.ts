@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill';
-import { type BrowserMessageType, type ColorScheme } from './models';
+import { type BrowserMessageType } from './models';
 import PageChecker from './util/page-checker';
 
 browser.runtime.onMessage.addListener(message => {

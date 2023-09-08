@@ -1,7 +1,7 @@
 <script lang=ts>
   import { onMount } from "svelte";
 	import ModuleStatusTable from "../components/module-status-table.svelte";
-	import PageChecker, { type ModuleStatusType } from "../util/page-checker";
+	import { type ModuleStatusType } from "../util/page-checker";
 	import { fetchModuleStatus } from "../util/fetch-module-status";
 
 	let moduleStatus : ModuleStatusType | null = null;
