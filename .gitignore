@@ -3,7 +3,8 @@
 
 # web
 **/node_modules
-Extension/dist
+Extension/dist/*
+!Extension/dist/.gitkeep
 
 # safari
 **/xcdebugger
