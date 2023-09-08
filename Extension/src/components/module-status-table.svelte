@@ -1,17 +1,12 @@
 <script lang="ts">
-	type Status = 'positive'|'negative'|'warning'|'neutral';
-	type StatusObject= {
-		status: Status,
-		message?: string
-	};
-	type Modules = 'criticalCss'|'deferredJs'|'lazyLoading'|'concatenateJs'|'concatenateCss'|'imageCdn';
-	
-	export let moduleStatus: Record< Modules, StatusObject >;
+	import type { ModuleStatusType, StatusObject } from "../util/page-checker";
+
+	export let moduleStatus: ModuleStatusType;
 
 	const getModuleStatusMessage = (statusObj: StatusObject) => {
 		const contextualMessages = {
-			'positive': 'Serving',
-			'negative': 'Not Serving',
+			'positive': 'Working',
+			'negative': 'Not Working',
 			'neutral': 'Ok',
 			'warning': 'Undetermined',
 		}

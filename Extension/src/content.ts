@@ -1,20 +1,16 @@
 import browser from 'webextension-polyfill';
 import { type BrowserMessageType, type ColorScheme } from './models';
+import PageChecker from './util/page-checker';
 
 browser.runtime.onMessage.addListener(message => {
-  console.log('got message', message);
   switch (message.type as BrowserMessageType) {
-    case 'getColorScheme': {
-      return Promise.resolve(getColorScheme());
+    case 'getModuleStatus': {
+      return Promise.resolve( getModuleStatus() );
     }
   }
 });
 
-function getColorScheme() {
-  let scheme: ColorScheme = 'light';
-  const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  if (darkModeMediaQuery.matches) {
-    scheme = 'dark';
-  }
-  return scheme;
+function getModuleStatus() {
+  const pageChecker = new PageChecker();
+  return pageChecker.getPageStatus();
 }

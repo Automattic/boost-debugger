@@ -18,12 +18,15 @@
     "service_worker": "dist/background.js"
   },
 
-  "host_permissions": [],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
 
   "content_scripts": [
     {
       "js": ["dist/content.js"],
-      "matches": ["*://example.com/*"]
+      "matches": ["<all_urls>"]
     }
   ],
 
@@ -39,7 +42,7 @@
     }
   },
 
-  "permissions": ["storage"],
+  "permissions": ["activeTab"],
 
   "options_ui": {
     "page": "public/settings.html",

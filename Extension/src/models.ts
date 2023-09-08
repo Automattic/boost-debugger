@@ -1,4 +1,4 @@
-export type BrowserMessageType = 'getColorScheme' | 'gotColorScheme';
+export type BrowserMessageType = 'getModuleStatus';
 
 export type BrowserMessage = {
   type: BrowserMessageType;
