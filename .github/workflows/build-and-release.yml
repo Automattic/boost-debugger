@@ -17,15 +17,14 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '14'
-
-    - name: Browse to correct directory
-      run: cd Extension
     
     - name: Install Dependencies
       run: npm install
+      working-directory: Extension
 
     - name: Build Chrome Extension
       run: npm run build:chrome
+      working-directory: Extension
 
     - name: Upload Release Asset
       id: upload-release-asset
