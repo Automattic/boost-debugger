@@ -10,6 +10,8 @@ export type ModuleStatusType = Record< Modules, StatusObject >;
 
 export default class PageChecker {
 	public getPageStatus(): ModuleStatusType {
+		this.getImageCdnStatus();
+
 		return {
 			criticalCss: {
 				status: this.hasCriticalCSS() ? "positive" : "negative"
@@ -21,10 +23,7 @@ export default class PageChecker {
 			lazyLoading: {
 				status: this.hasLazyLoading() ? "positive" : "negative"
 			},
-			imageCdn: {
-				status: 'neutral',
-				message: 'Not implemented'
-			},
+			imageCdn: this.getImageCdnStatus(),
 			concatenateCss: this.getConcatenateCssStatus(),
 			concatenateJs: this.getConcatenateJsStatus(),
 		}
@@ -104,5 +103,91 @@ export default class PageChecker {
 		}
 	
 		return false;
+	}
+
+	private getImageCdnStatus( ) : StatusObject {
+		const images = document.querySelectorAll( 'img' );
+		let cdnImageCount = 0;
+		let nonCdnImages = 0;
+
+		images.forEach( ( image ) => {
+			try {
+				let imageUrl: string;
+
+				if (image.currentSrc) {
+					imageUrl = image.currentSrc;
+				} else if (image.srcset) {
+					const srcsetUrls = image.srcset.split(',').map((s) => s.trim().split(' ')[0]);
+					imageUrl = srcsetUrls[0];
+				} else {
+					imageUrl = image.src;
+				}
+
+				const parts = new URL( imageUrl );
+
+				if( parts.hostname === 'i0.wp.com' ) {
+					cdnImageCount++;
+				}
+				else if( this.domainShouldHaveCdn( parts.hostname ) && !this.isStatsUrl( imageUrl ) ){
+					nonCdnImages++;
+					console.log( image.currentSrc, 'is not cdn');
+				}
+			}
+			catch {
+				console.log( 'skipping', image );
+				// Skip images that do not have a hostname
+			}
+		} );
+
+		if ( cdnImageCount && !nonCdnImages ) {
+			return {
+				status: 'positive',
+			};
+		} else if ( ! cdnImageCount && nonCdnImages) {
+			return {
+				status: 'negative'
+			}
+		} else if ( cdnImageCount && nonCdnImages ) {
+			return {
+				status: 'warning',
+				message: `CDN images: ${cdnImageCount}, non-CDN images: ${nonCdnImages}`,
+			}
+		}
+
+
+		return {
+			status: 'neutral',
+			message: 'No images found'
+		}
+	}
+
+	private isStatsUrl( url: string ) {
+		// Check if it's a wp-admin generated image which would usually be for stats
+		return url.search( '/wp-admin/admin.php' ) !== -1;
+	}
+
+	private domainShouldHaveCdn( hostname: string ) {
+		const noCdnDomains = [
+			/^.*\.files\.wordpress\.com$/,
+			/^secure\.gravatar\.com$/,
+			/^chart\.googleapis\.com$/,
+			/^chart\.apis\.google\.com$/,
+			/^graph\.facebook\.com$/,
+			/\.fbcdn\.net$/,
+			/\.paypalobjects\.com$/,
+			/\.dropbox\.com$/,
+			/\.cdninstagram\.com$/,
+			/^(commons|upload)\.wikimedia\.org$/,
+			/\.wikipedia\.org$/,
+		]
+
+		for (const pattern of noCdnDomains) {
+			if ( pattern.test(hostname)) {
+				return false;
+			}
+		}
+		
+		return true;
+
 	}
 }
