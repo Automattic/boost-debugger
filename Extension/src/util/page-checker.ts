@@ -130,11 +130,11 @@ export default class PageChecker {
 				}
 				else if( this.domainShouldHaveCdn( parts.hostname ) && !this.isStatsUrl( imageUrl ) ){
 					nonCdnImages++;
-					console.log( image.currentSrc, 'is not cdn');
+					console.log( imageUrl, 'is not serving through cdn');
 				}
 			}
 			catch {
-				console.log( 'skipping', image );
+				console.log( 'Skipped checking this image for CDN:', image );
 				// Skip images that do not have a hostname
 			}
 		} );
