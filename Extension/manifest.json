@@ -48,7 +48,7 @@
 
   "browser_specific_settings": {
     "gecko": {
-      "id": "REPLACEME"
+      "id": "boost.debugger@automattic.com"
     }
   }
 }

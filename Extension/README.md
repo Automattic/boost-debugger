@@ -1,4 +1,4 @@
-# REPLACEME
+# Jetpack Boost Debugger
 
 ## Building and running locally
 

@@ -1,5 +1,5 @@
 {
-  "name": "REPLACEME",
+  "name": "jetpack-boost-debugger",
   "version": "1.0.0",
   "description": "",
   "main": "background.js",
@@ -11,8 +11,8 @@
     "build:firefox": "node scripts/firefox-build.js"
   },
   "keywords": [],
-  "author": "REPLACEME",
-  "license": "MIT",
+  "author": "automattic",
+  "license": "GPLV2",
   "devDependencies": {
     "@tsconfig/svelte": "^5.0.0",
     "@types/webextension-polyfill": "^0.10.0",
