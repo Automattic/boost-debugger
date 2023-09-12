@@ -86,16 +86,16 @@ export default class PageChecker {
 	}
 	
 	private hasConcatenatedCss() {
-		const stylesheet = document.querySelector('link[rel="stylesheet"][data-handles][href*="_jb_static"]');
+		const stylesheet = document.querySelector('link[rel="stylesheet"][href*="_jb_static"]');
 	
-		// If there is a stylesheet which has the `data-handles` attribute and `_jb_static` in the URL, Concatenate CSS is at play.
+		// If there is a stylesheet which has `_jb_static` in the URL, Concatenate CSS is at play.
 		return stylesheet !== null;
 	}
 	
 	private hasConcatenatedJs() {
-		const script = document.querySelector('script[src][data-handles][src*="_jb_static"]');
+		const script = document.querySelector('script[src*="_jb_static"]');
 	
-		// If there is a script which has the `data-handles` attribute and `_jb_static` in the URL, Concatenate JS is at play.
+		// If there is a script which has `_jb_static` in the URL, Concatenate JS is at play.
 		return script !== null;
 	}
 	
