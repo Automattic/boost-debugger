@@ -119,6 +119,23 @@ export default class PageChecker {
 		return false;
 	}
 
+	private getImageUrl( image: HTMLImageElement ): string {
+		let imageUrl;
+
+		if (image.currentSrc) {
+			imageUrl = image.currentSrc;
+		} else if (image.srcset) {
+			const srcsetUrls = image.srcset.split(',').map((s) => s.trim().split(' ')[0]);
+			imageUrl = srcsetUrls[0];
+		}
+
+		if( !imageUrl || imageUrl.startsWith( 'data:' ) ) {
+			imageUrl = image.src;
+		}
+
+		return imageUrl;
+	}
+
 	private getImageCdnStatus( ) : StatusObject {
 		const images = document.querySelectorAll( 'img' );
 		let cdnImageCount = 0;
@@ -126,16 +143,7 @@ export default class PageChecker {
 
 		images.forEach( ( image ) => {
 			try {
-				let imageUrl: string;
-
-				if (image.currentSrc) {
-					imageUrl = image.currentSrc;
-				} else if (image.srcset) {
-					const srcsetUrls = image.srcset.split(',').map((s) => s.trim().split(' ')[0]);
-					imageUrl = srcsetUrls[0];
-				} else {
-					imageUrl = image.src;
-				}
+				const imageUrl = this.getImageUrl( image );
 
 				const parts = new URL( imageUrl );
 
