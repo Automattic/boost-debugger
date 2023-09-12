@@ -20,9 +20,7 @@ export default class PageChecker {
 				status: this.getNonDeferredJs().length === 0 ? "positive" : "negative",
 				message: this.getNonDeferredJs().length === 0 ? undefined : `${this.getNonDeferredJs().length} files weren't deferred`
 			},
-			lazyLoading: {
-				status: this.hasLazyLoading() ? "positive" : "negative"
-			},
+			lazyLoading: this.getLazyLoadingStatus(),
 			imageCdn: this.getImageCdnStatus(),
 			concatenateCss: this.getConcatenateCssStatus(),
 			concatenateJs: this.getConcatenateJsStatus(),
@@ -59,8 +57,24 @@ export default class PageChecker {
 		return { status: 'negative' };
 	}
 
+	private getLazyLoadingStatus() : StatusObject {
+		if ( !this.hasImages() ) {
+			return { status: "neutral", message: "No images found" };
+		}
+
+		if ( this.hasLazyLoading() ) {
+			return { status: "positive" };
+		}
+
+		return { status: "negative" };
+	}
+
 	private hasCriticalCSS() {
 		return document.getElementById( 'jetpack-boost-critical-css' );
+	}
+
+	private hasImages() {
+		return document.querySelectorAll( 'img' ).length > 0;
 	}
 	
 	private hasLazyLoading() {
