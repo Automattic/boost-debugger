@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type AppSettings } from '../models';
+  import { type AppSettings } from '../types/app';
   import settingsConnector from '../settings-connector';
 
   type InputChangeEvent = Event & {

@@ -3,6 +3,7 @@ import type { Module } from "./interface-module";
 
 export class DeferredJs implements Module {
 	public readonly identifier = 'deferred-js';
+	public readonly label = 'Deferred JS';
 
 	public getStatus(): StatusObject {
 		const nonDeferredFiles = this.getNonDeferredJs();

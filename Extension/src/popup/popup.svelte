@@ -5,11 +5,11 @@
 	import { getPageUrl } from "../util/page-url";
 	import type { ModuleDataPayload } from "../types/module";
 
-	let moduleStatus : ModuleDataPayload | null = null;
+	let moduleData : ModuleDataPayload | null = null;
 	let pageUrl : string | undefined = '';
 
 	onMount( async function() {
-		moduleStatus = await fetchModuleStatus();
+		moduleData = await fetchModuleStatus();
 		pageUrl = await getPageUrl();
 	} );
 
@@ -17,8 +17,8 @@
 </script>
 <div class="jetpack-boost-debugger">
 	<h1>Jetpack Boost Debugger</h1>
-	{#if moduleStatus}
-		<ModuleStatusTable moduleStatus={ moduleStatus } />
+	{#if moduleData}
+		<ModuleStatusTable moduleData={ moduleData } />
 	{:else}
 		Inspecting...
 	{/if}

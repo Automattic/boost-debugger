@@ -4,6 +4,7 @@ import type { StatusObject } from "../types/module";
 
 export class PageCache implements Module {
 	public readonly identifier = 'page-cache';
+	public readonly label = 'Page Cache';
 
 	public async getStatus(): Promise<StatusObject> {
 		const header = await this.getCacheHeader();

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { ModuleDataPayload, StatusObject } from "../types/module";
+	import { modules } from "../modules/modules";
+	import type { ModuleDataPayload, StatusObject } from "../types/module";
 
-
-	export let moduleStatus: ModuleDataPayload;
+	export let moduleData: ModuleDataPayload;
 
 	const getModuleStatusMessage = (statusObj: StatusObject) => {
 		const contextualMessages = {
@@ -23,10 +23,10 @@
 		</tr>
 	</thead>
 	<tbody>
-		{#each Object.values(moduleStatus) as module}
-		<tr class="{module.status.type}">
-			<td class="module-name">{module.label}</td>
-			<td class="module-status">{getModuleStatusMessage(module.status)}</td>
+		{#each Object.entries(moduleData) as [moduleId, moduleStatus]}
+		<tr class="{moduleStatus.type}">
+			<td class="module-name">{modules[moduleId].label}</td>
+			<td class="module-status">{getModuleStatusMessage(moduleStatus)}</td>
 		</tr>
 		{/each}
 	</tbody>

@@ -1,13 +1,7 @@
 import browser from 'webextension-polyfill';
-import { type MessageTypes } from './models';
-import { type Module } from './modules/interface-module';
-import { CriticalCss } from './modules/critical-css';
-import { PageCache } from './modules/page-cache';
-import { DeferredJs } from './modules/deferred-js';
-import { ImageCdn } from './modules/image-cdn';
-import { ConcatenateCss } from './modules/concatenate-css';
-import { ConcatenateJs } from './modules/concatenate-js';
+import { type MessageTypes } from './types/app';
 import type { ModuleDataPayload } from './types/module';
+import { modules } from './modules/modules';
 
 browser.runtime.onMessage.addListener(message => {
 	switch (message.type as MessageTypes) {
@@ -18,22 +12,10 @@ browser.runtime.onMessage.addListener(message => {
 });
 
 async function getModuleStatus() {
-	const modules: Module[] = [
-		new CriticalCss(),
-		new PageCache(),
-		new DeferredJs(),
-		new ImageCdn(),
-		new ConcatenateCss(),
-		new ConcatenateJs(),
-	];
-
 	const statuses: ModuleDataPayload = {}
-	for (const module of modules) {
+	for (const module of Object.values(modules)) {
 		const status = await module.getStatus();
-		statuses[module.identifier] = {
-			label: module.identifier,
-			status
-		};
+		statuses[module.identifier] = status;
 	}
 
 	return statuses;

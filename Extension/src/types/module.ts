@@ -7,9 +7,4 @@ export type StatusObject= {
 	message?: string
 };
 
-export type ModuleData = {
-	label: string,
-	status: StatusObject,
-}
-
-export type ModuleDataPayload = Record< Module['identifier'], ModuleData >;
+export type ModuleDataPayload = Record< Module['identifier'], StatusObject >;

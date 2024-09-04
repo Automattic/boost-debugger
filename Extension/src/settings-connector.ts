@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill';
-import { type AppSettings, DEFAULT_SETTINGS } from './models';
+import { type AppSettings, DEFAULT_SETTINGS } from './types/app';
 
 class SettingsConnector {
   private static readonly settingsKey = 'settings';

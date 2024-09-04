@@ -1,11 +1,5 @@
 import browser from 'webextension-polyfill';
-import { detect } from 'detect-browser';
-import {
-  type BrowserMessage,
-  type MessageTypes,
-  type ColorScheme
-} from './models';
-import settingsConnector from './settings-connector';
+import { type MessageTypes } from './types/app';
 
 let hasBoostCacheHeader: string | false = false;
 

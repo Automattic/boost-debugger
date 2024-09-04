@@ -3,6 +3,7 @@ import type { Module } from "./interface-module";
 
 export class ImageCdn implements Module {
 	public readonly identifier = 'image-cdn';
+	public readonly label = 'Image CDN';
 
 	public getStatus(): StatusObject {
 		const images = document.querySelectorAll( 'img' );

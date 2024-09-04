@@ -4,6 +4,7 @@ import type { Module } from "./interface-module";
 
 export class ConcatenateCss implements Module {
 	public readonly identifier = 'concatenate-css';
+	public readonly label = 'Concatenate CSS';
 
 	public getStatus(): StatusObject {
 		if( this.hasConcatenatedCss() ) {
