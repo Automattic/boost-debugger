@@ -12,8 +12,3 @@ At this moment, it will only let you check if different modules are working as e
 5. Enable "Developer mode" in the top right corner and click "Load unpacked" button. [screenshot](https://d.pr/i/gqVndq)
 6. Load the directory where you unpacked the extension in #3.
 7. Now open any site and use the extension from the toolbar to view the statuses. [screenshot](https://d.pr/i/vvjNZv)
-
-## Upcoming
-
-- Toggle image guide on any site
-- Show latest boost scores
