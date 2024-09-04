@@ -8,8 +8,22 @@
 	let moduleData : ModuleDataPayload | null = null;
 	let pageUrl : string | undefined = '';
 
+	let moduleDataFetchIntervalId: number | undefined;
+
+	async function updateModuleData() {
+		try {
+			moduleData = await fetchModuleStatus();
+			if( moduleData ) {
+				clearInterval( moduleDataFetchIntervalId );
+			}
+		} catch( error ) {
+			console.error( error );
+		}
+	}
+
 	onMount( async function() {
-		moduleData = await fetchModuleStatus();
+		await updateModuleData();
+		moduleDataFetchIntervalId = setInterval( updateModuleData, 1000 );
 		pageUrl = await getPageUrl();
 	} );
 
