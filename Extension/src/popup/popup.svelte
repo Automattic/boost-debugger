@@ -1,11 +1,11 @@
 <script lang=ts>
   import { onMount } from "svelte";
 	import ModuleStatusTable from "../components/module-status-table.svelte";
-	import { type ModuleStatusType } from "../util/page-checker";
 	import { fetchModuleStatus } from "../util/fetch-module-status";
 	import { getPageUrl } from "../util/page-url";
+	import type { ModuleDataPayload } from "../types/module";
 
-	let moduleStatus : ModuleStatusType | null = null;
+	let moduleStatus : ModuleDataPayload | null = null;
 	let pageUrl : string | undefined = '';
 
 	onMount( async function() {

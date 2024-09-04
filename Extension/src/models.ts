@@ -1,7 +1,7 @@
-export type BrowserMessageType = 'getModuleStatus';
+export type MessageTypes = 'get-module-status' | 'get-boost-cache-header';
 
 export type BrowserMessage = {
-  type: BrowserMessageType;
+  type: MessageTypes;
   value?: any;
 };
 

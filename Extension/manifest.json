@@ -42,16 +42,10 @@
     }
   },
 
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "webRequest"],
 
   "options_ui": {
     "page": "public/settings.html",
     "open_in_tab": true
-  },
-
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "boost.debugger@automattic.com"
-    }
   }
 }

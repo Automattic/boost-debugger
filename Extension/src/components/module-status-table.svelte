@@ -1,7 +1,8 @@
 <script lang="ts">
-	import type { ModuleStatusType, StatusObject } from "../util/page-checker";
+  import type { ModuleDataPayload, StatusObject } from "../types/module";
 
-	export let moduleStatus: ModuleStatusType;
+
+	export let moduleStatus: ModuleDataPayload;
 
 	const getModuleStatusMessage = (statusObj: StatusObject) => {
 		const contextualMessages = {
@@ -10,7 +11,7 @@
 			'neutral': 'Ok',
 			'warning': 'Undetermined',
 		}
-		return statusObj.message || contextualMessages[statusObj.status]
+		return statusObj.message || contextualMessages[statusObj.type]
 	}
 </script>
 
@@ -22,30 +23,12 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr class={moduleStatus.criticalCss.status}>
-			<td class="module-name">Critical CSS</td>
-			<td class="module-status">{getModuleStatusMessage(moduleStatus.criticalCss)}</td>
+		{#each Object.values(moduleStatus) as module}
+		<tr class="{module.status.type}">
+			<td class="module-name">{module.label}</td>
+			<td class="module-status">{getModuleStatusMessage(module.status)}</td>
 		</tr>
-		<tr class={moduleStatus.deferredJs.status}>
-			<td class="module-name">Deferred JS</td>
-			<td class="module-status">{getModuleStatusMessage(moduleStatus.deferredJs)}</td>
-		</tr>
-		<tr class={moduleStatus.lazyLoading.status}>
-			<td class="module-name">Lazy Loading</td>
-			<td class="module-status">{getModuleStatusMessage(moduleStatus.lazyLoading)}</td>
-		</tr>
-		<tr class={moduleStatus.concatenateCss.status}>
-			<td class="module-name">Concatenate CSS</td>
-			<td class="module-status">{getModuleStatusMessage(moduleStatus.concatenateCss)}</td>
-		</tr>
-		<tr class={moduleStatus.concatenateJs.status}>
-			<td class="module-name">Concatenate JS</td>
-			<td class="module-status">{getModuleStatusMessage(moduleStatus.concatenateJs)}</td>
-		</tr>
-		<tr class={moduleStatus.imageCdn.status}>
-			<td class="module-name">Image CDN</td>
-			<td class="module-status">{getModuleStatusMessage(moduleStatus.imageCdn)}</td>
-		</tr>
+		{/each}
 	</tbody>
 </table>
 
