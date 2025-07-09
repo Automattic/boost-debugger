@@ -5,11 +5,13 @@ import { DeferredJs } from "./deferred-js";
 import { ImageCdn } from "./image-cdn";
 import type { Module } from "./interface-module";
 import { PageCache } from "./page-cache";
+import { Lcp } from "./lcp";
 
 export const modules: Record<Module['identifier'], Module> = {};
 
 const list = [
 	new CriticalCss(),
+	new Lcp(),
 	new PageCache(),
 	new DeferredJs(),
 	new ImageCdn(),
