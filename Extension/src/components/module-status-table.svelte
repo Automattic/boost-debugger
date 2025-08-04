@@ -47,8 +47,20 @@
 	const handleModuleToggle = async (moduleId: string, isChecked: boolean) => {
 		if (isChecked) {
 			disabledModules.add(moduleId);
+			// Special case: critical-css can be either critical_css or cloud_css
+			// When one is disabled, disable both
+			if (moduleId === 'critical_css' || moduleId === 'cloud_css') {
+				disabledModules.add('critical_css');
+				disabledModules.add('cloud_css');
+			}
 		} else {
 			disabledModules.delete(moduleId);
+			// Special case: critical-css can be either critical_css or cloud_css
+			// When one is enabled, enable both
+			if (moduleId === 'critical_css' || moduleId === 'cloud_css') {
+				disabledModules.delete('critical_css');
+				disabledModules.delete('cloud_css');
+			}
 		}
 		
 		// Create a new Set to trigger reactivity
