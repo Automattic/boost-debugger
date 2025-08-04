@@ -6,9 +6,11 @@
 	import { getPageUrl } from "../util/page-url";
 
 	export let moduleData: ModuleDataPayload;
+	export let onModuleDataUpdate: () => Promise<void>;
 
 	let disabledModules: Set<string> = new Set();
 	let currentUrl: string = '';
+	let isWaitingForReload = false;
 
 	const getModuleStatusMessage = (statusObj: StatusObject) => {
 		const contextualMessages = {
@@ -37,6 +39,9 @@
 		const tabs = await browser.tabs.query({ active: true, currentWindow: true });
 		const disabledArray = Array.from(disabled);
 		const paramValue = disabledArray.length > 0 ? disabledArray.join(',') : '';
+		
+		// Set flag that we're waiting for a reload
+		isWaitingForReload = true;
 		
 		await browser.tabs.sendMessage(tabs[0].id as number, {
 			type: 'update-url-params',
@@ -69,9 +74,19 @@
 		await updateUrlDisabledModules(disabledModules);
 	}
 
+	// Single persistent listener set up once
 	onMount(async () => {
 		currentUrl = await getPageUrl() || '';
 		disabledModules = parseDisabledModulesFromUrl(currentUrl);
+		
+		// Set up the tab listener once
+		const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+		browser.tabs.onUpdated.addListener((tabId, changeInfo) => {
+			if (tabId === tabs[0].id && changeInfo.status === 'complete' && isWaitingForReload) {
+				isWaitingForReload = false;
+				onModuleDataUpdate();
+			}
+		});
 	});
 </script>
 
