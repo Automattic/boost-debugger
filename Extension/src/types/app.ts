@@ -1,4 +1,4 @@
-export type MessageTypes = 'get-module-status' | 'get-boost-cache-header';
+export type MessageTypes = 'get-module-status' | 'get-boost-cache-header' | 'update-url-params';
 
 export type Message = {
 	type: MessageTypes;
