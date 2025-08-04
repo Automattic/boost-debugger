@@ -74,6 +74,26 @@
 		await updateUrlDisabledModules(disabledModules);
 	}
 
+	const handleToggleAll = async () => {
+		// If any modules are disabled, enable all. Otherwise, disable all.
+		const shouldEnableAll = disabledModules.size > 0;
+		
+		if (shouldEnableAll) {
+			disabledModules = new Set();
+		} else {
+			// Add all module keys
+			disabledModules = new Set(Object.keys(moduleData));
+			
+			// Special case: if critical_css or cloud_css exists, add both
+			if (disabledModules.has('critical_css') || disabledModules.has('cloud_css')) {
+				disabledModules.add('critical_css');
+				disabledModules.add('cloud_css');
+			}
+		}
+		
+		await updateUrlDisabledModules(disabledModules);
+	}
+
 	// Single persistent listener set up once
 	onMount(async () => {
 		currentUrl = await getPageUrl() || '';
@@ -94,7 +114,7 @@
 	<thead>
 		<tr>
 			<th>Module</th>
-			<th>Force Disable</th>
+			<th>Force Disable (<a href="#toggle-all" on:click={() => handleToggleAll()}>Toggle All</a>)</th>
 			<th>Status</th>
 		</tr>
 	</thead>
