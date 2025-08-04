@@ -2,7 +2,7 @@ import type { StatusObject } from "../types/module";
 import type { Module } from "./interface-module";
 
 export class ImageCdn implements Module {
-	public readonly identifier = 'image-cdn';
+	public readonly identifier = 'image_cdn';
 	public readonly label = 'Image CDN';
 
 	public getStatus(): StatusObject {

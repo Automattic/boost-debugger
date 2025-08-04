@@ -3,7 +3,7 @@ import type { Module } from "./interface-module";
 import type { StatusObject } from "../types/module";
 
 export class PageCache implements Module {
-	public readonly identifier = 'page-cache';
+	public readonly identifier = 'page_cache';
 	public readonly label = 'Page Cache';
 
 	public async getStatus(): Promise<StatusObject> {
