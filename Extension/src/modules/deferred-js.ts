@@ -2,7 +2,7 @@ import type { StatusObject } from "../types/module";
 import type { Module } from "./interface-module";
 
 export class DeferredJs implements Module {
-	public readonly identifier = 'deferred-js';
+	public readonly identifier = 'render_blocking_js';
 	public readonly label = 'Deferred JS';
 
 	public getStatus(): StatusObject {

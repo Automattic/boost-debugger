@@ -32,7 +32,7 @@
 <div class="jetpack-boost-debugger">
 	<h1>Jetpack Boost Debugger</h1>
 	{#if moduleData}
-		<ModuleStatusTable moduleData={ moduleData } />
+		<ModuleStatusTable moduleData={ moduleData } onModuleDataUpdate={updateModuleData} />
 	{:else}
 		Inspecting...
 	{/if}

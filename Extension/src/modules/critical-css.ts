@@ -2,7 +2,7 @@ import type { StatusObject } from "../types/module";
 import type { Module } from "./interface-module";
 
 export class CriticalCss implements Module {
-	public readonly identifier = 'critical-css';
+	public readonly identifier = 'critical_css';
 	public readonly label = 'Critical CSS';
 
 	public getStatus(): StatusObject {

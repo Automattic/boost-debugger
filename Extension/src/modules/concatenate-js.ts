@@ -3,7 +3,7 @@ import { hasComment } from "../util/has-comment";
 import type { Module } from "./interface-module";
 
 export class ConcatenateJs implements Module {
-	public readonly identifier = 'concatenate-js';
+	public readonly identifier = 'minify_js';
 	public readonly label = 'Concatenate JS';
 
 	public getStatus(): StatusObject {
