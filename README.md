@@ -2,7 +2,9 @@
 
 This extension allows Happiness Engineers to debug Boost features on different sites easily.
 
-Currently, it will only let you check if different modules are working as expected without digging through the source.
+What it can do:
+- check if different modules are working as expected;
+- easily force disable modules on a page.
 
 ## Installation (Chrome, unpacked extension)
 1. Head over to the [releases page](https://github.com/Automattic/boost-debugger/releases).
