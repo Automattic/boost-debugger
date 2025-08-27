@@ -26,17 +26,34 @@ jobs:
       run: npm run build:chrome
       working-directory: Extension
 
-    - name: Rename extension file
-      run: mv packaged-extension.zip chrome.zip
+    - name: Build Firefox Extension
+      run: npm run build:firefox
       working-directory: Extension
 
-    - name: Upload Release Asset
-      id: upload-release-asset
+    - name: Rename extension files
+      run: |
+        mv packaged-extension.zip chrome.zip
+        cd build-firefox && zip -r ../firefox.zip . && cd ..
+      working-directory: Extension
+
+    - name: Upload Chrome Release Asset
+      id: upload-chrome-asset
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ github.event.release.upload_url }}
         asset_path: Extension/chrome.zip
-        asset_name:  boost-debugger-chrome-extension.zip
+        asset_name: boost-debugger-chrome-extension.zip
+        asset_content_type: application/zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload Firefox Release Asset
+      id: upload-firefox-asset
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: Extension/firefox.zip
+        asset_name: boost-debugger-firefox-extension.zip
         asset_content_type: application/zip
     env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
