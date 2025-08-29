@@ -13,6 +13,8 @@ Continue the process with the steps listed below.
 
 ### Firefox
 
+- Navigate to `Extension`
+- Run `npm run build:firefox`
 - Open Firefox's [debugging page](about:debugging#/runtime/this-firefox) (`about:debugging#/runtime/this-firefox`)
 - Click "Load Temporary Add-on..."
-- Navigate to this project's root and select `manifest.json`
+- Navigate to this project's root and select `Extension/build-firefox/manifest.json`

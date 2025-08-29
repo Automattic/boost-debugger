@@ -4,6 +4,7 @@
 # web
 **/node_modules
 Extension/dist/*
+Extension/build-firefox/
 packaged-extension.zip
 extension-source.zip
 
